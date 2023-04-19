@@ -9,7 +9,7 @@ export function Hero() {
   return (
     <div className="grid grid-cols-2 justify-between items-center mt-24">
       <div className="">
-        <h1 className="font-cursive font-extrabold text-5xl leading-relaxed text-base-title">
+        <h1 className="font-cursive font-extrabold text-5xl leading-snug text-base-title">
           Encontre o café perfeito para qualquer hora do dia
         </h1>
         <p className="text-base-subtitle text-xl mt-4">

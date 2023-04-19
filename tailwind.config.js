@@ -12,7 +12,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ["Roboto", "sans-serif"],
-        cursive: ["Baloo 2", "cursive"],
+        cursive: ['"Baloo 2"', "cursive"],
       },
       colors: {
         "base-background": "#fafafa",
