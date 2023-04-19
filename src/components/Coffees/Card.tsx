@@ -1,12 +1,19 @@
 import Image from "next/image";
+import { Coffee } from ".";
 
-export function Card() {
+interface CardProps {
+  item: Coffee;
+}
+
+export function Card({ item }: CardProps) {
   return (
-    <div>
-      <Image src="" alt="" />
-      <span></span>
-      <strong></strong>
-      <span></span>
+    <div className="bg-base-card relative px-6 py-5 rounded-md rounded-tr-[36px] rounded-bl-[36px] min-h-[310px]">
+      <Image src={item.image_url} alt="" width={120} height={120} />
+      {item.tags.map((tag, index) => (
+        <span key={index}>{tag}</span>
+      ))}
+      <strong>{item.title}</strong>
+      <span>{item.description}</span>
       <div>
         <h3>
           <span></span>

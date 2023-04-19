@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Card } from "./Card";
 
 export interface Coffee {
   id: number;
@@ -9,12 +10,8 @@ export interface Coffee {
   price: number;
 }
 
-export interface Coffees {
-  coffees: Coffee[];
-}
-
 export function Coffees() {
-  const [coffeesList, setCoffeesList] = useState<Coffees[]>([]);
+  const [coffeesList, setCoffeesList] = useState<Coffee[]>([]);
   console.log(coffeesList);
 
   useEffect(() => {
@@ -29,7 +26,12 @@ export function Coffees() {
 
   return (
     <div className="mt-32 py-8">
-      <h2 className="font-cursive text-3xl">Nossos cafés</h2>
+      <h2 className="font-cursive text-4xl text-base-subtitle">Nossos cafés</h2>
+      <section className="grid grid-cols-4 gap-8 mt-24 pb-24">
+        {coffeesList.map((coffee) => (
+          <Card key={coffee.id} item={coffee} />
+        ))}
+      </section>
     </div>
   );
 }

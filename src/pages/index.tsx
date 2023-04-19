@@ -1,17 +1,21 @@
 import { Coffees } from "@/components/Coffees";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
+import Head from "next/head";
 
 export default function Home() {
   return (
     <>
+      <Head>
+        <title>Coffee Delivery | Porto Alegre</title>
+      </Head>
       <Header />
-      <main className="bg-bg-cover w-full h-full min-h-screen">
-        <div className="container">
+      <div className="">
+        <main className="container">
           <Hero />
           <Coffees />
-        </div>
-      </main>
+        </main>
+      </div>
     </>
   );
 }
