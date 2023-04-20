@@ -4,6 +4,7 @@ import location from "../assets/icons/location.svg";
 import { MapPin, ShoppingCartSimple } from "@phosphor-icons/react";
 import { ButtonCart } from "./ButtonCart";
 import { useCart } from "@/contexts/CartContext";
+import Link from "next/link";
 
 export function Header() {
   const { cartQuantity } = useCart();
@@ -11,7 +12,9 @@ export function Header() {
   return (
     <header className="py-8 bg-base-background">
       <div className="container flex items-center justify-between">
-        <Image src={logo} alt="" width={85} height={40} priority />
+        <Link href="/">
+          <Image src={logo} alt="" width={85} height={40} priority />
+        </Link>
         <div className="flex items-center gap-2">
           <div className="bg-purple-light flex items-center gap-1 py-2 px-3 rounded-md text-purple ">
             <MapPin weight="fill" size={22} />
