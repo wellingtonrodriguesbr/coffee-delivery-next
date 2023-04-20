@@ -1,6 +1,11 @@
-import '@/styles/globals.css'
-import type { AppProps } from 'next/app'
+import { CartContextProvider } from "@/contexts/CartContext";
+import type { AppProps } from "next/app";
+import "@/styles/globals.css";
 
 export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  return (
+    <CartContextProvider>
+      <Component {...pageProps} />
+    </CartContextProvider>
+  );
 }

@@ -5,12 +5,14 @@ import {
   useEffect,
   useState,
 } from "react";
+import { Coffee } from "@/components/Coffees";
+import { produce } from "immer";
 
 interface CartContextProviderProps {
   children: ReactNode;
 }
 
-export interface CartItem {
+export interface CartItem extends Coffee {
   quantity: number;
 }
 
@@ -32,15 +34,8 @@ export const CartContext = createContext({} as CartContextData);
 const ITEMS_STORAGE_KEY = "coffeeDelivery:cart";
 
 export function CartContextProvider({ children }: CartContextProviderProps) {
-  const [cartItems, setCartItems] = useState<CartItem[]>(() => {
-    const storagedCart = localStorage.getItem(ITEMS_STORAGE_KEY);
-
-    if (storagedCart) {
-      return JSON.parse(storagedCart);
-    }
-
-    return [];
-  });
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [mounted, setMounted] = useState(false);
 
   const cartQuantity = cartItems.length;
 
@@ -53,7 +48,7 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
       (cartItem) => cartItem.id === item.id
     );
 
-    /* const newCart = produce(cartItems, (draft) => {
+    const newCart = produce(cartItems, (draft) => {
       if (itemAlreadyExistsInCart < 0) {
         draft.push(item);
       } else {
@@ -62,9 +57,9 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     });
 
     setCartItems(newCart);
-  } */
+  }
 
-  /* function changeCartItemQuantity(
+  function changeCartItemQuantity(
     cartItemId: number,
     type: "increase" | "decrease"
   ) {
@@ -81,7 +76,7 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     });
 
     setCartItems(newCart);
-  } */
+  }
 
   function handleRemoveItem(item: CartItem) {}
 
@@ -90,8 +85,21 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
   }
 
   useEffect(() => {
+    const storagedCart = localStorage.getItem(ITEMS_STORAGE_KEY);
+
+    if (storagedCart) {
+      setCartItems(JSON.parse(storagedCart));
+    }
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) {
+      return;
+    }
+
     localStorage.setItem(ITEMS_STORAGE_KEY, JSON.stringify(cartItems));
-  }, [cartItems]);
+  }, [cartItems, mounted]);
 
   return (
     <CartContext.Provider
