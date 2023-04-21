@@ -1,4 +1,4 @@
-import { Coffees } from "@/components/Coffees";
+import { Coffees } from "@/components/home/Coffees";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import Head from "next/head";

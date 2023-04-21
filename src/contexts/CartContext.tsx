@@ -5,7 +5,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import { Coffee } from "@/components/Coffees";
+import { Coffee } from "@/components/home/Coffees";
 import { produce } from "immer";
 
 interface CartContextProviderProps {

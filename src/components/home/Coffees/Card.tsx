@@ -1,9 +1,9 @@
 import Image from "next/image";
 import { Coffee } from ".";
 import { formattedPrice } from "@/utils/formattedPrice";
-import { IncreaseDecreaseButton } from "../IncreaseDecreaseButton";
+import { IncreaseDecreaseButton } from "../../IncreaseDecreaseButton";
 import { ShoppingCartSimple } from "@phosphor-icons/react";
-import { ButtonCart } from "../ButtonCart";
+import { ButtonCart } from "../../ButtonCart";
 import { useState } from "react";
 import { useCart } from "@/contexts/CartContext";
 
