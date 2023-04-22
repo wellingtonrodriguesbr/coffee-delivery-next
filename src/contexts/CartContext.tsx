@@ -78,7 +78,17 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     setCartItems(newCart);
   }
 
-  function handleRemoveItem(item: CartItem) {}
+  function handleRemoveItem(item: CartItem) {
+    const itemAlreadyExistsInCart = cartItems.findIndex(
+      (cartItem) => cartItem.id === item.id
+    );
+
+    const newCart = produce(cartItems, (draft) => {
+      draft.splice(itemAlreadyExistsInCart, 1);
+    });
+
+    setCartItems(newCart);
+  }
 
   function clearCart() {
     setCartItems([]);

@@ -3,8 +3,8 @@ import { Minus, Plus } from "@phosphor-icons/react";
 interface IncreaseDecreaseButtonProps {
   small?: boolean;
   quantity: number;
-  increaseItemQuantity?: () => void;
-  decreaseItemQuantity?: () => void;
+  increaseItemQuantity: () => void;
+  decreaseItemQuantity: () => void;
 }
 
 export function IncreaseDecreaseButton({
@@ -21,7 +21,8 @@ export function IncreaseDecreaseButton({
     >
       <button
         type="button"
-        className="text-purple hover:text-purple-dark transition-colors text-[0px]"
+        disabled={quantity === 1}
+        className="text-purple hover:text-purple-dark transition-colors text-[0px] disabled:cursor-not-allowed"
         onClick={decreaseItemQuantity}
       >
         <Minus size={14} />
