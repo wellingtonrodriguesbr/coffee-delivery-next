@@ -1,12 +1,28 @@
 import Head from "next/head";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { Header } from "@/components/Header";
 import image from "../assets/SuccessImage.png";
 import location from "../assets/icons/map.svg";
 import clock from "../assets/icons/time.svg";
 import money from "../assets/icons/money.svg";
 
+import { FormOrderCompleteSchema } from "@/pages/checkout";
+import { methods } from "@/components/checkout/PaymentMethods";
+
 export default function OrderConfirmed() {
+  const router = useRouter();
+  const {
+    cep,
+    street,
+    city,
+    neighborhood,
+    number,
+    paymentMethod,
+    uf,
+    complement,
+  } = FormOrderCompleteSchema.parse(router.query);
+
   return (
     <>
       <Head>
@@ -28,10 +44,13 @@ export default function OrderConfirmed() {
                 <Image src={location} alt="" width={32} height={32} priority />
                 <div className="flex flex-col">
                   <span className="text-base text-base-text">
-                    Entrega em <strong className="">Nome da rua, 102</strong>
+                    Entrega em{" "}
+                    <strong className="">
+                      {street}, {number}
+                    </strong>
                   </span>
                   <span className="text-base text-base-text">
-                    Farrapos - Porto Alegre, RS
+                    {neighborhood} - {city}, {uf.toUpperCase()}
                   </span>
                 </div>
               </div>
@@ -55,7 +74,7 @@ export default function OrderConfirmed() {
                     Pagamento na entrega
                   </span>
                   <strong className="text-base text-base-text">
-                    Cartão de crédito
+                    {methods[paymentMethod].label}
                   </strong>
                 </div>
               </div>

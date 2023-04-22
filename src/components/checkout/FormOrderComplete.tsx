@@ -1,8 +1,15 @@
 import { CurrencyDollar, MapPinLine } from "@phosphor-icons/react";
 import { Input } from "@/components/Input";
 import { PaymentMethods } from "./PaymentMethods";
+import { useFormContext } from "react-hook-form";
+import { FormOrderCompleteData } from "@/pages/checkout";
 
 export function FormOrderComplete() {
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext<FormOrderCompleteData>();
+
   return (
     <div className="w-full mt-10">
       <h3 className="font-cursive text-base-subtitle text-lg">
@@ -22,13 +29,57 @@ export function FormOrderComplete() {
         </div>
 
         <div className="mt-8 grid grid-cols-6 gap-4">
-          <Input className="col-span-3" placeholder="CEP" />
-          <Input className="col-span-full" placeholder="Rua" />
-          <Input className="col-span-2" type="number" placeholder="Número" />
-          <Input className="col-span-4" placeholder="Complemento" />
-          <Input className="col-span-2" placeholder="Bairro" />
-          <Input className="col-span-3" placeholder="Cidade" />
-          <Input className="col-span-1" maxLength={2} placeholder="UF" />
+          <Input
+            className="col-span-3"
+            placeholder="CEP"
+            type="number"
+            id="cep"
+            {...register("cep")}
+          />
+
+          <Input
+            className="col-span-full"
+            type="text"
+            placeholder="Rua"
+            id="street"
+            {...register("street")}
+          />
+          <Input
+            className="col-span-2"
+            type="text"
+            placeholder="Número"
+            id="number"
+            {...register("number")}
+          />
+          <Input
+            className="col-span-4"
+            type="text"
+            placeholder="Complemento"
+            id="complement"
+            {...register("complement")}
+          />
+          <Input
+            className="col-span-2"
+            type="text"
+            placeholder="Bairro"
+            id="neighborhood"
+            {...register("neighborhood")}
+          />
+          <Input
+            className="col-span-3"
+            type="text"
+            placeholder="Cidade"
+            id="city"
+            {...register("city")}
+          />
+          <Input
+            className="col-span-1"
+            type="text"
+            maxLength={2}
+            placeholder="UF"
+            id="uf"
+            {...register("uf")}
+          />
         </div>
       </div>
       <div className="min-w-[640px] bg-base-card p-10 mt-3 rounded-md">

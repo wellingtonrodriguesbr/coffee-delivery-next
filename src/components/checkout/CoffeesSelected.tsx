@@ -4,10 +4,15 @@ import { useCart } from "@/contexts/CartContext";
 import { IncreaseDecreaseButton } from "../IncreaseDecreaseButton";
 import { formattedPrice } from "@/utils/formattedPrice";
 import { ArrowUpRight, Trash } from "@phosphor-icons/react";
+import { useFormContext } from "react-hook-form";
+import { FormOrderCompleteData } from "@/pages/checkout";
 
 const DELIVERY_VALUE = 3.5;
 
 export function CoffeesSelected() {
+  const {
+    formState: { isSubmitting },
+  } = useFormContext<FormOrderCompleteData>();
   const {
     cartItems,
     cartItemsTotal,
@@ -16,6 +21,8 @@ export function CoffeesSelected() {
   } = useCart();
   const orderTotal = cartItemsTotal + DELIVERY_VALUE;
   const emptyCart = !cartItems.length;
+
+  const disabledButton = emptyCart || isSubmitting;
 
   function handleIncreaseQuantity(itemId: number) {
     changeCartItemQuantity(itemId, "increase");
@@ -45,7 +52,7 @@ export function CoffeesSelected() {
                 className="flex justify-between w-full border-b border-base-button mt-8 pb-8 first:mt-0"
               >
                 <div className="flex gap-3">
-                  <Image src={item.image_url} alt="" width={68} height={64} />
+                  <Image src={item.image_url} alt="" width={68} height={68} />
 
                   <div className="flex flex-col gap-2">
                     <p className="text-base-subtitle text-base">{item.title}</p>
@@ -102,7 +109,7 @@ export function CoffeesSelected() {
         {emptyCart ? (
           <Link
             href="/"
-            className="w-full bg-purple text-white uppercase font-bold py-3 rounded-md text-sm mt-6 block flex justify-center items-center gap-3"
+            className="w-full bg-purple text-white uppercase font-bold py-3 rounded-md text-sm mt-6 hover:bg-purple-dark transition-colors flex justify-center items-center gap-3"
           >
             Adicionar itens
             <ArrowUpRight weight="bold" size={20} />
@@ -110,8 +117,8 @@ export function CoffeesSelected() {
         ) : (
           <button
             type="submit"
-            disabled={emptyCart}
-            className="w-full bg-yellow text-white uppercase font-bold py-3 rounded-md text-sm mt-6 disabled:opacity-70 disabled:cursor-not-allowed"
+            disabled={disabledButton}
+            className="w-full bg-yellow hover:bg-yellow-dark transition-colors text-white uppercase font-bold py-3 rounded-md text-sm mt-6 disabled:opacity-70 disabled:cursor-not-allowed"
           >
             Confirmar pedido
           </button>
