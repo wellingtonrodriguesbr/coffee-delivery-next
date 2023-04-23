@@ -30,6 +30,7 @@ export function Card({ item }: CardProps) {
     };
 
     handleAddItem(coffeeToAdd);
+    alert("Item adicionado ao carrinho!");
   }
 
   return (
