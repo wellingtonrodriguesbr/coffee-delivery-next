@@ -56,6 +56,7 @@ export function FormOrderComplete() {
             type="text"
             placeholder="Complemento"
             id="complement"
+            isComplement
             {...register("complement")}
           />
           <Input

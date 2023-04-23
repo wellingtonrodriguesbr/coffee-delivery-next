@@ -8,22 +8,30 @@ interface InputProps
     HTMLInputElement
   > {
   className: string;
+  isComplement?: boolean;
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
-  { className, ...props },
+  { className, isComplement = false, ...props },
   ref
 ) {
   const {
     formState: { errors },
   } = useFormContext();
   return (
-    <div className={` w-full flex flex-col gap-2 ${className}`}>
-      <input
-        className={`rounded-[4px] p-3 bg-base-input border border-base-button placeholder:text-base-label/50 outline-none focus:border-base-label text-base-text text-sm`}
-        ref={ref}
-        {...props}
-      />
+    <div className={`w-full flex flex-col gap-2 ${className}`}>
+      <div className="relative">
+        <input
+          className={`rounded-[4px] p-3 bg-base-input border border-base-button placeholder:text-base-label/50 outline-none focus:border-base-label text-base-text text-sm w-full`}
+          ref={ref}
+          {...props}
+        />
+        {isComplement ? (
+          <p className="absolute right-1 top-4 w-fit px-2 bg-base-input text-xs italic text-base-label">
+            Opcional
+          </p>
+        ) : null}
+      </div>
       <ErrorMessage
         errors={errors}
         name={props.name!}
