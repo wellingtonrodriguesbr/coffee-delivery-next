@@ -7,14 +7,17 @@ import location from "../assets/icons/map.svg";
 import clock from "../assets/icons/time.svg";
 import money from "../assets/icons/money.svg";
 
-import { FormOrderCompleteSchema } from "@/pages/checkout";
+import { FormOrderCompleteData } from "@/pages/checkout";
 import { methods } from "@/components/checkout/PaymentMethods";
 
-export default function OrderConfirmed() {
-  const router = useRouter();
+interface OrderConfimedType {
+  query: FormOrderCompleteData;
+}
 
-  const { street, city, neighborhood, number, paymentMethod, uf } =
-    FormOrderCompleteSchema.parse(router.query);
+
+export default function OrderConfirmed() {
+  const { query } = useRouter() as unknown as OrderConfimedType;
+  const { street, number, neighborhood, city, uf, paymentMethod } = query
 
   return (
     <>
@@ -43,7 +46,7 @@ export default function OrderConfirmed() {
                     </strong>
                   </span>
                   <span className="text-base text-base-text">
-                    {neighborhood} - {city}, {uf.toUpperCase()}
+                    {neighborhood} - {city}, {uf?.toUpperCase()}
                   </span>
                 </div>
               </div>
@@ -67,7 +70,7 @@ export default function OrderConfirmed() {
                     Pagamento na entrega
                   </span>
                   <strong className="text-base text-base-text">
-                    {methods[paymentMethod].label}
+                    {methods[paymentMethod]?.label}
                   </strong>
                 </div>
               </div>
