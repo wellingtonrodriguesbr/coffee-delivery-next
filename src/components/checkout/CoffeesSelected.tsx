@@ -3,9 +3,10 @@ import Image from "next/image";
 import { useCart } from "@/contexts/CartContext";
 import { IncreaseDecreaseButton } from "../IncreaseDecreaseButton";
 import { formattedPrice } from "@/utils/formattedPrice";
-import { ArrowUpRight, Trash } from "@phosphor-icons/react";
+import { ArrowUpRight, CircleNotch, Trash } from "@phosphor-icons/react";
 import { useFormContext } from "react-hook-form";
 import { FormOrderCompleteData } from "@/pages/checkout";
+import { ButtonRemoveItemDialog } from "../ButtonRemoveItemDialog";
 
 const DELIVERY_VALUE = 3.5;
 
@@ -13,12 +14,7 @@ export function CoffeesSelected() {
   const {
     formState: { isSubmitting },
   } = useFormContext<FormOrderCompleteData>();
-  const {
-    cartItems,
-    cartItemsTotal,
-    changeCartItemQuantity,
-    handleRemoveItem,
-  } = useCart();
+  const { cartItems, cartItemsTotal, changeCartItemQuantity } = useCart();
   const orderTotal = cartItemsTotal + DELIVERY_VALUE;
   const emptyCart = !cartItems.length;
 
@@ -68,14 +64,7 @@ export function CoffeesSelected() {
                         }
                         small
                       />
-                      <button
-                        type="button"
-                        onClick={() => handleRemoveItem(item)}
-                        className="flex items-center justify-center gap-1 p-2 bg-base-button rounded-md text-base-text hover:bg-base-hover transition-colors text-xs uppercase"
-                      >
-                        <Trash className="text-purple" size={16} />
-                        Remover
-                      </button>
+                      <ButtonRemoveItemDialog item={item} />
                     </div>
                   </div>
                 </div>
@@ -118,9 +107,13 @@ export function CoffeesSelected() {
           <button
             type="submit"
             disabled={disabledButton}
-            className="w-full bg-yellow hover:bg-yellow-dark transition-colors text-white uppercase font-bold py-3 rounded-md text-sm mt-6 disabled:opacity-70 disabled:cursor-not-allowed"
+            className="w-full bg-yellow hover:bg-yellow-dark transition-colors text-white uppercase font-bold py-3 rounded-md text-sm mt-6 disabled:opacity-70 disabled:cursor-not-allowed flex justify-center items-center"
           >
-            Confirmar pedido
+            {isSubmitting ? (
+              <CircleNotch className="animate-spin" weight="bold" size={20} />
+            ) : (
+              "Confirmar pedido"
+            )}
           </button>
         )}
       </div>
