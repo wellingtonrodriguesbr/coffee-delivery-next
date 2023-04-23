@@ -12,16 +12,9 @@ import { methods } from "@/components/checkout/PaymentMethods";
 
 export default function OrderConfirmed() {
   const router = useRouter();
-  const {
-    cep,
-    street,
-    city,
-    neighborhood,
-    number,
-    paymentMethod,
-    uf,
-    complement,
-  } = FormOrderCompleteSchema.parse(router.query);
+
+  const { street, city, neighborhood, number, paymentMethod, uf } =
+    FormOrderCompleteSchema.parse(router.query);
 
   return (
     <>
