@@ -9,7 +9,7 @@
 # Sobre o projeto
 
 <p>
-  Coffee Delivery é uma loja fictícia para venda de cafés com entrega rápida, segura e rastreada.
+  Coffee Delivery é uma loja fictícia para venda de cafés com entrega rápida, segura e rastreada. Que faz parte de um dos desafios do módulo 02 da trilha de Reactjs do Ignite da Rocketseat.
 </p>
 
 # Tecnologias
